@@ -1,0 +1,10 @@
+grammar hledger;
+
+journal : (COMMENT_LINE | COMMENT_BLOCK | EMPTY_LINE | directive | transaction)* ;
+
+COMMENT_LINE : '//' .*? '\r'? '\n' -> channel ;
+COMMENT_BLOCK : 'comment' '\r'? '\n' .*? '\n' 'end comment' '\r'? '\n' -> channel ;
+EMPTY_LINE : '\r'? '\n' -> channel ;
+
+directive : .* '\r'? '\n' ;
+transaction : .* '\r'? '\n' ;
