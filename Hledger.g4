@@ -25,7 +25,7 @@ multipleWords : word (SPACE word)* ;
 word : ACCOUNT | COMMODITY | OTHER_WORD ;
 commentText : SPACE* word (SPACE+ word)* ;
 
-commodityDirective : COMMODITY SPACE commodityString (SPACE START_WITHIN_COMMENT commentText)? EOL ;
+commodityDirective : COMMODITY SPACE commodityString (SPACE* START_WITHIN_COMMENT commentText)? EOL ;
 commodityString : multipleWords ;
 
 transaction : DATE EOL ;
