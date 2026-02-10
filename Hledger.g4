@@ -6,7 +6,6 @@ COMMENT_LINE : '//' .*? EOL ;
 SEMICOLON : ';' ;
 EOL : '\r'? '\n' ;
 SPACE : ' ' ;
-SEP : SPACE SPACE+ ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 OTHER_WORD : ~[ ;\r\n]+ ;
@@ -19,13 +18,13 @@ emptyLine : EOL ;
 
 directive : (accountDirective | commodityDirective) ;
 
-accountDirective : ACCOUNT SPACE accountName (SEP SEMICOLON commentText)? EOL ;
+accountDirective : ACCOUNT SPACE accountName (SPACE SPACE+ SEMICOLON commentText)? EOL ;
 accountName : multipleWords ;
 multipleWords : word (SPACE word)* ;
 word : ACCOUNT | COMMODITY | OTHER_WORD ;
 commentText : SPACE* word (SPACE+ word)* ;
 
-commodityDirective : COMMODITY SPACE commodityString (SEP SEMICOLON commentText)? EOL ;
+commodityDirective : COMMODITY SPACE commodityString (SPACE SPACE+ SEMICOLON commentText)? EOL ;
 commodityString : multipleWords ;
 
 transaction : DATE EOL ;
