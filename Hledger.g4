@@ -6,7 +6,7 @@ COMMENT_LINE : '//' .*? EOL ;
 SEMICOLON : ';' ;
 EOL : '\r'? '\n' ;
 SPACE : ' ' ;
-START_WITHIN_COMMENT : '  ;'
+START_WITHIN_COMMENT : '  ;' ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 OTHER_WORD : ~[ ;\r\n]+ ;
