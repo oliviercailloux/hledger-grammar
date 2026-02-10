@@ -3,10 +3,9 @@ grammar Hledger;
 COMMENT_BLOCK : 'comment' EOL .*? EOL 'end comment' EOL ;
 COMMENT_LINE : '//' .*? EOL ;
 
-SEMICOLON : ';' ;
 EOL : '\r'? '\n' ;
 SPACE : ' ' ;
-SEP : SPACE SPACE+ ;
+ENDING_COMMENT : '  ' SPACE* ';' ~[\r\n]* EOL ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 DATE : [0-9] [0-9] [0-9] [0-9] '-' [0-9] [0-9] '-' [0-9] [0-9] ;
@@ -19,12 +18,12 @@ emptyLine : EOL ;
 
 directive : (accountDirective | commodityDirective) ;
 
-accountDirective : ACCOUNT SPACE accountName (SEP SEMICOLON commentText)? EOL ;
+accountDirective : ACCOUNT SPACE accountName ENDING_COMMENT? EOL ;
 accountName : singleSpaced ;
 singleSpaced : ACCOUNT | COMMODITY | DATE | SINGLE_SPACED_NON_KEYWORD ;
 commentText : singleSpaced* ;
 
-commodityDirective : COMMODITY SPACE commodityString (SEP ';' commentText)? EOL ;
+commodityDirective : COMMODITY SPACE commodityString ENDING_COMMENT? EOL ;
 commodityString : singleSpaced ;
 
 transaction : DATE EOL ;
