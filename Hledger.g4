@@ -8,8 +8,8 @@ SPACE : ' ' ;
 SEP : SPACE SPACE+ ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
-OTHER_WORD : ~[ ;\r\n]+ ;
 DATE : [0-9] [0-9] [0-9] [0-9] '-' [0-9] [0-9] '-' [0-9] [0-9] ;
+SINGLE_SPACED_NON_KEYWORD : ~[ ;\r\n] (' '? ~[ ;\r\n])* ;
 
 
 journal : (emptyLine | COMMENT_LINE | COMMENT_BLOCK | directive | transaction)* EOF ;
@@ -19,12 +19,11 @@ emptyLine : EOL ;
 directive : (accountDirective | commodityDirective) ;
 
 accountDirective : ACCOUNT SPACE accountName (SEP ';' commentText)? EOL ;
-accountName : multipleWords ;
-multipleWords : word (SPACE word)* ;
-word : ACCOUNT | COMMODITY | OTHER_WORD ;
-commentText : SPACE* word (SPACE+ word)* ;
+accountName : singleSpaced ;
+singleSpaced : ACCOUNT | COMMODITY | DATE | SINGLE_SPACED_NON_KEYWORD ;
+commentText : singleSpaced* ;
 
 commodityDirective : COMMODITY SPACE commodityString (SEP ';' commentText)? EOL ;
-commodityString : multipleWords ;
+commodityString : singleSpaced ;
 
 transaction : DATE EOL ;
