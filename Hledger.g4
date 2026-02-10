@@ -9,8 +9,8 @@ SPACE : ' ' ;
 START_WITHIN_COMMENT : '  ;' ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
+DATE : [0-9] [0-9] [0-9] [0-9] [-./] [01]? [0-9] [-./] [0-3]? [0-9] ;
 OTHER_WORD : ~[ ;\r\n]+ ;
-DATE : [0-9] [0-9] [0-9] [0-9] [-\./] [01]? [0-9] '-' [0-3]? [0-9] ;
 
 
 journal : (emptyLine | COMMENT_LINE | COMMENT_BLOCK | directive | transaction)* EOF ;
@@ -23,7 +23,7 @@ accountDirective : ACCOUNT SPACE+ accountName (SPACE* START_WITHIN_COMMENT comme
 accountName : multipleWords ;
 multipleWords : word (SPACE word)* ;
 word : ACCOUNT | COMMODITY | OTHER_WORD ;
-commentText : (SPACE | SEMICOLON | word)* ;
+commentText : (SPACE | SEMICOLON | DATE | word)* ;
 
 commodityDirective : COMMODITY SPACE+ commodityString (SPACE* START_WITHIN_COMMENT commentText)? EOL ;
 commodityString : multipleWords ;
