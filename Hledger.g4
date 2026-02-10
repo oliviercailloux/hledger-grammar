@@ -1,32 +1,28 @@
 grammar Hledger;
 
-COMMENT_BLOCK : COMMENT_START EOL .*? EOL COMMENT_END EOL ;
-fragment
-COMMENT_START : 'comment' ;
-fragment
-COMMENT_END : 'end comment' ;
+COMMENT_BLOCK : 'comment' EOL .*? EOL 'end comment' EOL ;
+COMMENT_LINE : '//' .*? EOL ;
+
 EOL : '\r'? '\n' ;
 SPACE : ' ' ;
 SEP : SPACE SPACE+ ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
-WORD : ~[ ;\r\n]+ ;
-DATE : DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT ;
+OTHER_WORD : ~[ ;\r\n]+ ;
+DATE : [0-9] [0-9] [0-9] [0-9] '-' [0-9] [0-9] '-' [0-9] [0-9] ;
 
-fragment
-DIGIT : [0-9] ;
 
-journal : (emptyLine | commentLine | COMMENT_BLOCK | directive | transaction)* EOF ;
+journal : (emptyLine | COMMENT_LINE | COMMENT_BLOCK | directive | transaction)* EOF ;
 
 emptyLine : EOL ;
-commentLine : '//' .*? EOL ;
 
 directive : (accountDirective | commodityDirective) ;
 
 accountDirective : ACCOUNT SPACE accountName (SEP ';' commentText)? EOL ;
 accountName : multipleWords ;
-multipleWords : WORD (SPACE WORD)* ;
-commentText : SPACE* WORD (SPACE+ WORD)* ;
+multipleWords : word (SPACE word)* ;
+word : ACCOUNT | COMMODITY | OTHER_WORD ;
+commentText : SPACE* word (SPACE+ word)* ;
 
 commodityDirective : COMMODITY SPACE commodityString (SEP ';' commentText)? EOL ;
 commodityString : multipleWords ;
