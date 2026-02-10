@@ -10,7 +10,7 @@ START_WITHIN_COMMENT : '  ;' ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 OTHER_WORD : ~[ ;\r\n]+ ;
-DATE : [0-9] [0-9] [0-9] [0-9] '-' [0-9] [0-9] '-' [0-9] [0-9] ;
+DATE : [0-9] [0-9] [0-9] [0-9] [-\./] [01]? [0-9] '-' [0-3]? [0-9] ;
 
 
 journal : (emptyLine | COMMENT_LINE | COMMENT_BLOCK | directive | transaction)* EOF ;
