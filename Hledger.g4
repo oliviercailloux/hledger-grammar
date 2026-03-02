@@ -8,6 +8,8 @@ SEP : ' ' ' '+ ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9] [-./] [0-9][0-9] ;
+P_WORD : 'P' ' '+ ;
+STAR : '*' ' '+ ;
 EQUALS : ' '* '=' ;
 WORD : ~[ \r\n]+ ;
 WS : [ \t]+ -> channel(HIDDEN) ;
@@ -16,13 +18,16 @@ journal : (emptyLine | directive | transaction)* EOF ;
 
 emptyLine : EOL ;
 
-directive : (accountDirective | commodityDirective) ;
+directive : (accountDirective | commodityDirective | pDirective) ;
 accountDirective : ACCOUNT accountName EOL ;
 accountName : (ACCOUNT | COMMODITY | WORD)+ ;
 commodityDirective : COMMODITY commodity EOL ;
 commodity : (ACCOUNT | COMMODITY | WORD)+ ;
+pDirective : P_WORD DATE commoditySymbol commodityAmount EOL ;
+commoditySymbol : WORD ;
+commodityAmount : (ACCOUNT | COMMODITY | WORD)+ ;
 
 transaction : DATE description EOL (SEP posting EOL)* ;
 description : (SEP | ACCOUNT | COMMODITY | DATE | WORD)* ;
-posting : accountName (SEP commodity)? assertion? ;
+posting : STAR? accountName (SEP commodity)? assertion? ;
 assertion : EQUALS commodity ;
