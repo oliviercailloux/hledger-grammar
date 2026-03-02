@@ -1,34 +1,29 @@
 grammar Hledger;
 
+EOL : '\r'? '\n' ;
 COMMENT_BLOCK : 'comment' EOL .*? EOL 'end comment' EOL -> channel(HIDDEN) ;
 COMMENT_LINE : '//' .*? EOL -> channel(HIDDEN) ;
-
-SEMICOLON : ';' ;
-EOL : '\r'? '\n' ;
-SPACE : ' ' ;
-START_WITHIN_COMMENT : '  ;' ;
+WITHIN_COMMENT : '  ;' .*? -> channel(HIDDEN) ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 DATE : [0-9] [0-9] [0-9] [0-9] [-./] [01]? [0-9] [-./] [0-3]? [0-9] ;
-OTHER_WORD : ~[ ;\r\n]+ ;
+MULTIPLE_WORDS : SINGLE_WORD (SPACE SINGLE_WORD)*
+fragment
+SINGLE_WORD : ~[ ;\r\n]+ ;
+WS : ' ' -> channel(HIDDEN) ;
 
-
-journal : (emptyLine | directive | transaction)* EOF ;
-
-emptyLine : EOL ;
+journal : (directive | transaction)* EOF ;
 
 directive : (accountDirective | commodityDirective) ;
 
-accountDirective : ACCOUNT SPACE+ accountName SPACE* endComment? EOL ;
-accountName : multipleWords ;
-multipleWords : word (SPACE word)* ;
-word : ACCOUNT | COMMODITY | OTHER_WORD ;
-endComment : START_WITHIN_COMMENT commentText ;
-commentText : (SPACE | SEMICOLON | DATE | START_WITHIN_COMMENT | word)* ;
+accountDirective : ACCOUNT accountName EOL ;
+accountName : MULTIPLE_WORDS ;
 
-commodityDirective : COMMODITY SPACE+ commodityString SPACE* endComment? EOL ;
-commodityString : multipleWords ;
+commodityDirective : COMMODITY commodity EOL ;
+commodity : MULTIPLE_WORDS ;
 
-transaction : DATE SPACE* description SPACE* endComment? EOL posting* ;
-description : (SPACE* (SEMICOLON | DATE | word))* ;
-posting : SPACE+ accountName (SPACE SPACE+ commodityString)? SPACE* endComment? EOL ;
+transaction : DATE description EOL posting* ;
+description : (SEMICOLON | DATE | MULTIPLE_WORDS)* ;
+posting : accountName commodity? EOL ;
+
+INDENT : '  ' -> mode(INDENT_MODE) ;
