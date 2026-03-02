@@ -6,7 +6,7 @@ COMMENT_LINE : '//' .*? EOL -> channel(HIDDEN) ;
 INLINE_COMMENT : ';' ~[\r\n]* -> channel(HIDDEN) ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
-DATE : [0-9]{4} [-./] [0-9]{2} [-./] [0-9]{2} ;
+DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9] [-./] [0-9][0-9] ;
 WORD : ~[ ;\r\n]+ ;
 WS : [ \t]+ -> channel(HIDDEN) ;
 
