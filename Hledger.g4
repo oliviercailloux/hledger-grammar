@@ -28,6 +28,6 @@ commoditySymbol : WORD ;
 commodityAmount : (ACCOUNT | COMMODITY | WORD)+ ;
 
 transaction : DATE description EOL (SEP posting EOL)* ;
-description : (SEP | ACCOUNT | COMMODITY | DATE | WORD)* ;
+description : (SEP | ACCOUNT | COMMODITY | DATE | P_WORD | STAR | EQUALS | WORD)* ;
 posting : STAR? accountName (SEP commodity)? assertion? ;
 assertion : EQUALS commodity ;
