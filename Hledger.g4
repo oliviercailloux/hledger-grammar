@@ -8,7 +8,7 @@ SEP : ' ' ' '+ ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9] [-./] [0-9][0-9] ;
-WORD : ~[ ;\r\n]+ ;
+WORD : ~[ \r\n]+ ;
 WS : [ \t]+ -> channel(HIDDEN) ;
 
 
@@ -23,5 +23,5 @@ commodityDirective : COMMODITY commodity EOL ;
 commodity : (ACCOUNT | COMMODITY | WORD)+ ;
 
 transaction : DATE description EOL (SEP posting EOL)* ;
-description : (';' | SEP | ACCOUNT | COMMODITY | DATE | WORD)* ;
+description : (SEP | ACCOUNT | COMMODITY | DATE | WORD)* ;
 posting : accountName (SEP commodity)? ;
