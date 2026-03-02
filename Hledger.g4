@@ -6,7 +6,7 @@ COMMENT_LINE : '//' .*? EOL -> channel(HIDDEN) ;
 WITHIN_COMMENT : '  ;' .*? -> channel(HIDDEN) ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
-DATE : [0-9] [0-9] [0-9] [0-9] [-./] [01]? [0-9] [-./] [0-3]? [0-9] ;
+DATE : [0-9]{4} [-./] [0-9]{2} [-./] [0-9]{2} ;
 MULTIPLE_WORDS : SINGLE_WORD (SPACE SINGLE_WORD)* ;
 fragment
 SINGLE_WORD : ~[ ;\r\n]+ ;
