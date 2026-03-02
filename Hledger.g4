@@ -22,8 +22,5 @@ accountName : MULTIPLE_WORDS ;
 commodityDirective : COMMODITY commodity EOL ;
 commodity : MULTIPLE_WORDS ;
 
-transaction : DATE description EOL posting* ;
+transaction : DATE description EOL ;
 description : (SEMICOLON | DATE | MULTIPLE_WORDS)* ;
-posting : accountName commodity? EOL ;
-
-INDENT : '  ' -> mode(INDENT_MODE) ;
