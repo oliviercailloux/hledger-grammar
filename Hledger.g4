@@ -8,9 +8,9 @@ SEP : ' ' ' '+ ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9] [-./] [0-9][0-9] ;
+EQUALS : ' '* '=' ;
 WORD : ~[ \r\n]+ ;
 WS : [ \t]+ -> channel(HIDDEN) ;
-
 
 journal : (emptyLine | directive | transaction)* EOF ;
 
@@ -24,4 +24,5 @@ commodity : (ACCOUNT | COMMODITY | WORD)+ ;
 
 transaction : DATE description EOL (SEP posting EOL)* ;
 description : (SEP | ACCOUNT | COMMODITY | DATE | WORD)* ;
-posting : accountName (SEP commodity)? ;
+posting : accountName (SEP commodity)? assertion? ;
+assertion : EQUALS commodity ;
