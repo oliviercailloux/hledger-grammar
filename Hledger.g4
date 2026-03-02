@@ -22,5 +22,5 @@ accountName : WORD+ ;
 commodityDirective : COMMODITY commodity EOL ;
 commodity : WORD+ ;
 
-transaction : DATE description EOL ;
-description : (';' | DATE | WORD)* ;
+transaction : DATE description? EOL ;
+description : (';' | DATE | WORD)+ ;
