@@ -12,7 +12,9 @@ fragment
 SINGLE_WORD : ~[ ;\r\n]+ ;
 SPACE : ' ' -> channel(HIDDEN) ;
 
-journal : (directive | transaction)* EOF ;
+journal : (emptyLine | directive | transaction)* EOF ;
+
+emptyLine : EOL ;
 
 directive : (accountDirective | commodityDirective) ;
 
