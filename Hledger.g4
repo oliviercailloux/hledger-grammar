@@ -5,6 +5,7 @@ COMMENT_BLOCK : 'comment' EOL .*? EOL 'end comment' EOL -> channel(HIDDEN) ;
 COMMENT_LINE : ('//' | '#') .*? EOL -> channel(HIDDEN) ;
 INLINE_COMMENT : ' ' ' '+ ';' ~[\r\n]* -> channel(HIDDEN) ;
 SEP : ' ' ' '+ ;
+DECIMAL_MARK : 'decimal-mark .' ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
 DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9] [-./] [0-9][0-9] ;
@@ -18,7 +19,8 @@ journal : (emptyLine | directive | transaction)* EOF ;
 
 emptyLine : EOL ;
 
-directive : (accountDirective | commodityDirective | pDirective) ;
+directive : (decimalMarkDirective | accountDirective | commodityDirective | pDirective) ;
+decimalMarkDirective : DECIMAL_MARK EOL ;
 accountDirective : ACCOUNT accountName EOL ;
 accountName : (ACCOUNT | COMMODITY | WORD)+ ;
 commodityDirective : COMMODITY commodity EOL ;
