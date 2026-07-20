@@ -1,0 +1,7 @@
+= Hledger grammar
+
+An ANTLR grammar for partial support of hledger files.
+
+Thanks to https://stackoverflow.com/questions/79888382/avoid-repeating-keywords-in-antlr-rules[SO].
+
+See https://github.com/oliviercailloux/hledger-parser/[example] of possible use.
