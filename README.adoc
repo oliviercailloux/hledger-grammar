@@ -1,7 +1,13 @@
 = Hledger grammar
 
-An ANTLR grammar for partial support of hledger files.
+An ANTLR grammar for partial support of https://hledger.org/[hledger] journal files.
 
+== Support
+This grammar supports only a subset of the constructs of an hledger journal.
+
+I do not intend to extend it for now (and possibly ever), but I welcome help if anyone wants to contribute for supporting more syntax.
+
+== References
 Thanks to https://stackoverflow.com/questions/79888382/avoid-repeating-keywords-in-antlr-rules[SO].
 
-See https://github.com/oliviercailloux/hledger-parser/[example] of possible use.
+See this https://github.com/oliviercailloux/hledger-parser/[Java parser library] for example use.
