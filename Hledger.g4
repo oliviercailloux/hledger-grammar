@@ -29,7 +29,7 @@ accountDirective : ACCOUNT accountName EOL ;
 accountName : (ACCOUNT | COMMODITY | P | WORD)+ ;
 commodityDirective : COMMODITY commodity EOL ;
 commodity : (ACCOUNT | COMMODITY | P | WORD)+ ;
-pDirective : P DATE commoditySymbol commodityAmount EOL ;
+pDirective : P DATE commoditySymbol SEP? commodityAmount EOL ;
 commoditySymbol : WORD ;
 commodityAmount : (ACCOUNT | COMMODITY | P | WORD)+ ;
 
