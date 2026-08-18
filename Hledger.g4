@@ -1,7 +1,7 @@
 grammar Hledger;
 
 EOL : '\r'? '\n' ;
-COMMENT_BLOCK : 'comment' EOL .*? EOL 'end comment' EOL -> channel(HIDDEN) ;
+COMMENT_BLOCK : 'comment' EOL .*? (EOL 'end comment' EOL | EOF) -> channel(HIDDEN) ;
 fragment RestOfLine : ~[\r\n]* ;
 COMMENT_LINE : ('//' | '#' | ';') RestOfLine EOL -> channel(HIDDEN) ;
 INLINE_COMMENT : ' '+ ';' RestOfLine -> channel(HIDDEN) ;
