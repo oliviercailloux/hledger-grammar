@@ -2,8 +2,9 @@ grammar Hledger;
 
 EOL : '\r'? '\n' ;
 COMMENT_BLOCK : 'comment' EOL .*? EOL 'end comment' EOL -> channel(HIDDEN) ;
-COMMENT_LINE : ('//' | '#') .*? EOL -> channel(HIDDEN) ;
-INLINE_COMMENT : ' '+ ';' ~[\r\n]* -> channel(HIDDEN) ;
+fragment RestOfLine : ~[\r\n]* ;
+COMMENT_LINE : ('//' | '#' | ';') RestOfLine EOL -> channel(HIDDEN) ;
+INLINE_COMMENT : ' '+ ';' RestOfLine -> channel(HIDDEN) ;
 SEP : ' ' ' '+ ;
 DECIMAL_MARK : 'decimal-mark .' ;
 TAG : 'tag' ;
