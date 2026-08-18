@@ -10,7 +10,7 @@ DECIMAL_MARK : 'decimal-mark .' ;
 TAG : 'tag' ;
 ACCOUNT : 'account' ;
 COMMODITY : 'commodity' ;
-DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9] [-./] [0-9][0-9] ;
+DATE : [0-9][0-9][0-9][0-9] [-./] [0-9][0-9]? [-./] [0-9][0-9]? ;
 P_WORD : 'P' ' '+ ;
 STAR : '*' ' '+ ;
 EQUALS : ' '* '=' ;
