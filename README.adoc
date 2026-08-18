@@ -5,9 +5,9 @@ An ANTLR grammar for partial support of https://hledger.org/[hledger] journal fi
 == Support
 This grammar supports only a subset of the possible constructs of an hledger journal.
 
-I do not intend to extend it for now (and possibly ever), but I welcome help if anyone wants to contribute for supporting more constructs.
+I do not intend to extend it (it’s enough for my needs), but I welcome help if anyone wants to contribute for supporting more constructs and I’ll make reasonable efforts to fix bugs.
 
 == References
 Thanks to https://stackoverflow.com/questions/79888382/avoid-repeating-keywords-in-antlr-rules[SO].
 
-See this https://github.com/oliviercailloux/hledger-parser/[Java parser library] for example use and https://github.com/oliviercailloux/hledger-parser/tree/main/src/test/java/io/github/oliviercailloux/hparser/[unit tests].
+See this https://github.com/oliviercailloux/hledger-parser/[Java parser library] (generated from the grammar) for example use and tests which can let you better understand which kind of files are supported.
